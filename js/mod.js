@@ -14,13 +14,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6.5",
-	name: "The Chemistry Lab",
+	num: "0.6.6",
+	name: "Geometry Dash Treesease - Can't Let Go",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.6.5</h3><br>
-		<p>- Help layer was EXTENDED!!!
+	<h3>v0.6.6</h3><br>
+		<p>- Added a new layer!
 		                        <p><b><br>+Seder3214+</br></b></p>`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -60,6 +60,8 @@ if (player.DO.buyables[11].gte(1)) gain = gain.times(buyableEffect("DO", 11));
 			if (hasUpgrade("BT", 11)) gain = gain.times(4)
 						if (player.DO.buyables[22].gte(1)) gain = gain.times(25);
 					if (hasAchievement("ac", 14)) gain = gain.times(3)
+						if (hasUpgrade("SM",41)) gain = gain.mul(tmp.BAB.energyEff)
+						if (hasUpgrade("BAB",14)) gain = gain.mul(upgradeEffect("BAB",14))
 	return gain
 }
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values

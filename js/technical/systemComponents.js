@@ -188,9 +188,9 @@ var systemComponents = {
 	},
 
 	'node-mark': {
-		props: {'layer': {}, data: {}, offset: {default: 0}, scale: {default: 1}},
+		props: {'layer': {}, data: {}, offset: {default: 0}, scale: {default: 1},leftmove: {default:0}},
 		template: `<div v-if='data'>
-			<div v-if='data === true' class='star' v-bind:style='{position: "absolute", left: (offset-10) + "px", top: (offset-10) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}'></div>
+			<div v-if='data === true' class='star' v-bind:style='{position: "absolute", left: (offset-10+leftmove) + "px", top: (offset-10) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}'></div>
 			<img v-else class='mark' v-bind:style='{position: "absolute", left: (offset-22) + "px", top: (offset-15) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}' v-bind:src="data"></div>
 		</div>
 		`
