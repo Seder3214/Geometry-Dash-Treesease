@@ -675,7 +675,7 @@ buyables: {
 				 title: "Complete 15%",
 				 purchaseLimit() {if (player.DO.buyables[21].gte(2)) return new Decimal(20).add(hasChallenge("CLG", 12)?challengeEffect("CLG",12):0)
 					 else return new Decimal(15).add(hasChallenge("CLG", 12)?challengeEffect("CLG",12):0) },
-        cost(x) { if (hasChallenge("CLG"),12) return Decimal.pow(1.05,x.pow(new Decimal(challengeEffect("CLG",12)/1500).add(1)))
+        cost(x) { if (hasChallenge("CLG"),12) return Decimal.pow(1.05,x.add(1).pow(new Decimal(challengeEffect("CLG",12)/1500).min(0.275).add(1)))
 			else if (hasUpgrade("DO", 12)) return new Decimal(x.add(2)).div(buyableEffect("DO", 12)).div(1.5)
 		else return new Decimal(x.add(2)).div(buyableEffect("DO", 12)) },
         display() { let data = tmp[this.layer].buyables[this.id]
@@ -828,9 +828,10 @@ milestones: {
 				if (player.DO.points.gte(tmp.DO.buyables[21].cost))player.DO.buyables[21] = player.DO.buyables[21].add(player.DO.points.add(1).log(10).div(player.DO.buyables[21].add(1))).min(tmp.DO.buyables[21].purchaseLimit).max(0)
 				if (player.DO.points.gte(tmp.DO.buyables[13].cost))player.DO.buyables[13] = player.DO.buyables[13].add(player.DO.points.add(1).log(10).div(player.DO.buyables[13].add(1)).mul(1.5)).min(tmp.DO.buyables[13].purchaseLimit).max(0)
 				if (player.DO.points.gte(tmp.DO.buyables[12].cost))player.DO.buyables[12] = player.DO.buyables[12].add(player.DO.points.add(1).log(2).div(player.DO.buyables[12].add(1)).mul(1.5)).min(tmp.DO.buyables[12].purchaseLimit).max(0)
-					if (player.DO.points.gte(tmp.DO.buyables[12].cost)&&!(hasChallenge("CLG",12)))player.DO.buyables[11] = player.DO.points.add(1).log(player.DO.buyables[11]).mul(buyableEffect("DO", 12)).mul((hasUpgrade("DO", 12))?1.5:1).min(tmp.DO.buyables[11].purchaseLimit).max(0)}
-				if (player.DO.points.gte(tmp.DO.buyables[12].cost)&&(hasChallenge("CLG",12))) player.DO.buyables[11]=player.DO.points.add(1).log(1.05).pow(1/new Decimal(challengeEffect("CLG",12)/1500).add(1)).add(1).floor()
-			},
+					if (player.DO.points.gte(tmp.DO.buyables[12].cost)&&!(hasChallenge("CLG",12)))player.DO.buyables[11] = player.DO.points.add(1).log(player.DO.buyables[11].add(2)).mul(buyableEffect("DO", 12)).mul((hasUpgrade("DO", 12))?1.5:1).min(tmp.DO.buyables[11].purchaseLimit).max(0)
+				if (player.DO.points.gte(tmp.DO.buyables[12].cost)&&(hasChallenge("CLG",12))) player.DO.buyables[11]=player.DO.points.add(1).log(1.05).pow(1/new Decimal(challengeEffect("CLG",12)/1500).min(0.275).add(1)).add(1).floor()
+			}
+		},
 			doReset(resettingLayer) {
 				if(layers[resettingLayer].row > this.row) {
 					layerDataReset(this.layer,hasMilestone("BAB",14)?["upgrades"]:[])

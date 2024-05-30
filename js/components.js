@@ -173,10 +173,10 @@ function loadVue() {
         props: ['layer', 'data', 'cl', 'pcl'],
         template: `
 		<div v-if="tmp[layer].upgrades && tmp[layer].upgrades[data]!==undefined">
-			<button v-if="pseudoUnl(layer, data) && !(tmp[layer].upgrades[data].unlocked)" v-bind:class="{ [layer]: true, upg: true, pseudo: true, plocked: pcl=='locked', can: pcl=='can', anim: (player.anim&&!player.oldStyle), grad: (player.grad&&!player.oldStyle) }" v-on:click="unlockUpg(layer, data)">
+			<button v-if="pseudoUnl(layer, data) && !(tmp[layer].upgrades[data].unlocked)" v-on:mousedown="handleMouseEvent" v-on:mouseenter="handleMouseEvent" v-bind:class="{ [layer]: true, upg: true, pseudo: true, plocked: pcl=='locked', can: pcl=='can', anim: (player.anim&&!player.oldStyle), grad: (player.grad&&!player.oldStyle) }" v-on:click="unlockUpg(layer, data)">
 				<h3>Explore A New Upgrade</h3><br><span v-html="tmp[layer].upgrades[data].pseudoReq"></span>
 			</button>
-			<button v-if="tmp[layer].upgrades && tmp[layer].upgrades[data]!== undefined && tmp[layer].upgrades[data].unlocked" :id='"upgrade-" + layer + "-" + data' v-on:click="buyUpg(layer, data)" v-bind:class="{ [layer]: true, tooltipBox: true, upg: true, bought: hasUpgrade(layer, data), locked: (!(canAffordUpgrade(layer, data))&&!hasUpgrade(layer, data)), can: (canAffordUpgrade(layer, data)&&!hasUpgrade(layer, data))}"
+			<button v-if="tmp[layer].upgrades && tmp[layer].upgrades[data]!== undefined && tmp[layer].upgrades[data].unlocked" :id='"upgrade-" + layer + "-" + data' v-on:click="buyUpg(layer, data)" v-on:mousedown="handleMouseEvent" v-on:mouseenter="handleMouseEvent" v-bind:class="{ [layer]: true, tooltipBox: true, upg: true, bought: hasUpgrade(layer, data), locked: (!(canAffordUpgrade(layer, data))&&!hasUpgrade(layer, data)), can: (canAffordUpgrade(layer, data)&&!hasUpgrade(layer, data))}"
 			v-bind:style="[((!hasUpgrade(layer, data) && canAffordUpgrade(layer, data)) ? {'background-color': tmp[layer].color} : {}), tmp[layer].upgrades[data].style]">
 			<span v-if="layers[layer].upgrades[data].fullDisplay" v-html="run(layers[layer].upgrades[data].fullDisplay, layers[layer].upgrades[data])"></span>
 			<span v-else>
@@ -192,8 +192,16 @@ function loadVue() {
 			</button>
 				
 		</div>
-		`
-    })
+		`,
+		methods: {
+			handleMouseEvent(event) {
+				// event.buttons is a bitmask, 0b1 is primary mouse button (usually left)
+				if (event.buttons & 1) {
+					buyUpg(this.layer, this.data)
+				}
+			}
+		},
+	})
 	Vue.component('milestones', {
 		props: ['layer', 'data'],
 		template: `
