@@ -1086,7 +1086,7 @@ addLayer("CLG", {
 	challenges: {
 		11: {
 			softcapStart() {
-				let eff = new Decimal(1e9)
+				let eff = new Decimal(1e11)
 				return eff
 			},
 				name: "Buff The Difficulty",
