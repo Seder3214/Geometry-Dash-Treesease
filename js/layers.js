@@ -1357,10 +1357,23 @@ addLayer("ST", {
     },
 	    tabFormat: 
 		["blank", ["display-text", function() {
-			if (player.DO.unlocked) return "<h1>Layer Statistics</h1><br>Stereo Madness:  " + format(player.SM.total) + "<br> Back On Track: " + format(player.BT.total) + "<br> Polargeist: " + format(player.PG.best) + "Dry Out:  " + format(player.DO.best)
-					else if (player.PG.unlocked) return "<h1>Layer Statistics</h1><br>Stereo Madness:  " + format(player.SM.total) + "<br> Back On Track: " + format(player.BT.total) + "<br> Polargeist: " + format(player.PG.total) + "<br> ??? ???:  " + " ????"
-					else if (player.BT.unlocked) return "<h1>Layer Statistics</h1><br>Stereo Madness:" + " " + " " + " " + " " + " " + format(player.SM.total) + "<br> Back On Track:      " + format(player.BT.total) + "<br> ??????????:  " + " ????" + "<br> ??? ???:  " + " ????"
-		else if (player.SM.unlocked) return "<h1>Layer Statistics</h1><br>Stereo Madness:  " + format(player.SM.points) + "<br> ???? ?? ?????:" + "           ????" + "<br> ??????????:   " + "    ????" + "<br> ??? ???:  " + " ????"
+			let table=`<div style="width:600px; display: flex; justify-content: space-around;"><div style="width:200px; height:100%; border-right: 2px solid white;border-left: 2px solid white;">Layer Name<br><br>${player.SM.unlocked?"Stereo Madness":`<span style="color:grey">?????? ???????</span>`}
+			<br><br>${player.BT.unlocked?"Back On Track":`<span style="color:grey">???? ?? ?????</span>`}
+			<br><br>${player.PG.unlocked?"Polargeist":`<span style="color:grey">??????????</span>`}
+			<br><br>${player.DO.unlocked?"Dry Out":`<span style="color:grey">??? ???</span>`}
+			<br><br>${player.BAB.unlocked?"Base After Base":`<span style="color:grey">???? ????? ????</span>`}
+			<br><br>${player.CLG.unlocked?"Cant Let Go":`<span style="color:grey">???? ??? ??</span>`}</div><div style="width:200px; height:100%; border-right: 2px solid white;border-left: 2px solid white">Current Amount<br><br>${format(player.SM.points,0)}<br><br>${format(player.BT.unlocked?`${format(player.BT.points,0)}`:`0`)}
+			<br><br>${format(player.PG.unlocked?`${format(player.PG.points,0)}`:`0`)}
+			<br><br>${format(player.DO.unlocked?`${format(player.DO.points,0)}`:`0`)}
+			<br><br>${format(player.BAB.unlocked?`${format(player.BAB.points,0)}`:`0`)}
+			<br><br>${format(player.CLG.unlocked?`${format(player.CLG.points,0)}`:`0`)}
+			</div><div style="width:200px; height:100%; border-right: 2px solid white;border-left: 2px solid white">Total Amount<br><br>${format(player.SM.total,0)}<br><br>${format(player.BT.unlocked?`${format(player.BT.total,0)}`:`0`)}
+			<br><br>${format(player.PG.unlocked?`${format(player.PG.total,0)}`:`0`)}
+			<br><br>${format(player.DO.unlocked?`${format(player.DO.total,0)}`:`0`)}
+			<br><br>${format(player.BAB.unlocked?`${format(player.BAB.total,0)}`:`0`)}
+			<br><br>${format(player.CLG.unlocked?`${format(player.CLG.total,0)}`:`0`)}</div></div>`
+			return table
+
 		}
     ]],
 })
